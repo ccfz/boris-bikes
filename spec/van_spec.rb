@@ -5,8 +5,6 @@ require 'garage'
 describe Van do
   let(:bike_working) { double(:bike, :broken? => false ) }
   let(:bike_broken) { double(:bike, :broken? => true ) }
-  # let(:station1) { double(:station, :bikes => [bike_working, bike_broken] ) }
-  # let(:station2) { double(:station, :bikes => [bike_working] ) }
   let(:bike) { Bike.new }
   let(:garage) { Garage.new }
   let(:van) { Van.new }
@@ -38,22 +36,16 @@ describe Van do
 
   describe "#dropoff" do
     it "should drop off broken bikes to garage" do
-      van = Van.new
-      garage = Garage.new
-      broken_bike = Bike.new
-      broken_bike.report_broken
-      van.bikes << broken_bike
+      bike.report_broken
+      van.bikes << bike
       before_dropoff = van.bikes
       van.dropoff(garage)
       expect(garage.bikes).to eq(before_dropoff)
     end
 
     it "should empty van following dropoff" do
-      van = Van.new
-      garage = Garage.new
-      broken_bike = Bike.new
-      broken_bike.report_broken
-      van.bikes << broken_bike
+      bike.report_broken
+      van.bikes << bike
       van.dropoff(garage)
       expect(van.bikes).to be_empty
     end
