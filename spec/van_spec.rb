@@ -10,7 +10,7 @@ describe Van do
   let(:van) { Van.new }
   let(:docking_station) { DockingStation.new }
 
-  it {is_expected.to respond_to(:pickup).with(1).argument}
+  it {is_expected.to respond_to(:station_pickup).with(1).argument}
   it {is_expected.to respond_to(:dropoff).with(1).argument}
 
   describe "#initialize" do
@@ -19,17 +19,17 @@ describe Van do
     end
   end
 
-  describe "#pickup" do
+  describe "#dock_pickup" do
     it "should only pick up broken bikes" do
       docking_station.dock(bike_working)
       docking_station.dock(bike_broken)
-      expect(subject.pickup(docking_station)).to eq([bike_broken])
+      expect(subject.station_pickup(docking_station)).to eq([bike_broken])
     end
 
     it "should not pick up working bikes" do
       docking_station.dock(bike_working)
       docking_station.dock(bike_broken)
-      subject.pickup(docking_station)
+      subject.station_pickup(docking_station)
       expect(docking_station.bikes).to eq([bike_working])
     end
   end
@@ -52,4 +52,13 @@ describe Van do
 
   end
 
+  describe "#garage_pickup" do
+    it "expects the bikes being picked up from garage to be working" do
+      bike.report_broken
+      garage.bikes << bike
+      garage.fix
+      van.garage_pickup(garage)
+      expect(garage.bikes[0].broken).to eq (false)
+    end
+  end
 end

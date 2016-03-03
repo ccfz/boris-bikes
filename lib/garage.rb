@@ -1,5 +1,5 @@
-
 class Garage
+
   attr_accessor :bikes
 
   def initialize
@@ -9,6 +9,5 @@ class Garage
   def fix
      @bikes.each { |bike| bike.broken = false }
   end
-
 
 end

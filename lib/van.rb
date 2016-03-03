@@ -8,8 +8,7 @@ class Van
     @bikes = []
   end
 
-  def pickup(station)
-    #raise "There are no broken bikes in this station." if station.bikes.none? {|bike| bike.broken?}
+  def station_pickup(station)
     station.bikes.each {|bike| @bikes << bike if bike.broken?}
     station.bikes.delete_if {|bike| bike.broken?}
     @bikes
@@ -18,6 +17,10 @@ class Van
   def dropoff(garage)
     garage.bikes = @bikes
     @bikes = []
+  end
+
+  def garage_pickup(garage)
+    @bikes << garage.bikes
   end
 
 end
