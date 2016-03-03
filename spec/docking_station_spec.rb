@@ -56,6 +56,10 @@ describe DockingStation do
     expect {subject.release_bike}.to raise_error(RuntimeError)
   end
 
+  it 'needs to know, which bikes are broken' do
+    subject.dock(bike,'broken')
+    expect(subject.broken_bikes.last).to be bike
+  end
 
 end
 =begin
