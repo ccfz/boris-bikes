@@ -10,7 +10,7 @@ class Bike
   end
 
   def report_broken
-    @broken = !@broken
+    @broken = true
   end
 
   def broken?

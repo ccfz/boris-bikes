@@ -6,9 +6,9 @@ class Garage
     @bikes = []
   end
 
-  # def fix
-  #   @bikes.each { |bikes| bikes.report_broken }
-  # end
+  def fix
+     @bikes.each { |bike| bike.broken = false }
+  end
 
 
 end

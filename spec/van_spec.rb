@@ -5,41 +5,35 @@ require 'garage'
 describe Van do
   let(:bike_working) { double(:bike, :broken? => false ) }
   let(:bike_broken) { double(:bike, :broken? => true ) }
-  let(:station1) { double(:station, :bikes => [bike_working, bike_broken] ) }
+  # let(:station1) { double(:station, :bikes => [bike_working, bike_broken] ) }
+  # let(:station2) { double(:station, :bikes => [bike_working] ) }
+  let(:bike) { Bike.new }
+  let(:garage) { Garage.new }
+  let(:van) { Van.new }
+  let(:docking_station) { DockingStation.new }
 
   it {is_expected.to respond_to(:pickup).with(1).argument}
   it {is_expected.to respond_to(:dropoff).with(1).argument}
 
   describe "#initialize" do
     it "should initalize van as an empty array" do
-      van = Van.new
       expect(van.bikes).to eq []
     end
   end
 
   describe "#pickup" do
-    it "should return broken bikes in station" do
-      expect(subject.pickup(station1)).to eq([bike_broken])
+    it "should only pick up broken bikes" do
+      docking_station.dock(bike_working)
+      docking_station.dock(bike_broken)
+      expect(subject.pickup(docking_station)).to eq([bike_broken])
     end
 
-    it "should remove broken bikes from the station" do
-      station = DockingStation.new
-      van = Van.new
-      working_bike = Bike.new
-      station.dock working_bike
-      broken_bike = Bike.new
-      broken_bike.report_broken
-      station.dock broken_bike
-      van.pickup(station)
-      expect(station.bikes).to eq([working_bike])
+    it "should not pick up working bikes" do
+      docking_station.dock(bike_working)
+      docking_station.dock(bike_broken)
+      subject.pickup(docking_station)
+      expect(docking_station.bikes).to eq([bike_working])
     end
-
-    # it "should raise an error when there is no broken bike in the station" do
-    #   station = DockingStation.new
-    #   van = Van.new
-    #   5.times {station.dock Bike.new}
-    #   expect{van.pickup(station)}.to raise_error("There are no broken bikes in this station.")
-    # end
   end
 
   describe "#dropoff" do
