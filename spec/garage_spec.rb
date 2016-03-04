@@ -1,3 +1,4 @@
+require 'garage'
 require 'van'
 require 'bike'
 
@@ -10,10 +11,10 @@ describe Garage do
 
   describe "#fix" do
     it "should fix bikes brought to the garage" do
-        bike.report_broken
-        garage.bikes << bike
+        bike.broken
+        garage.pickup(bike)
         garage.fix
-        expect(bike.broken?).to eq false
+        expect(garage.unload.status).to eq false
     end
   end
 

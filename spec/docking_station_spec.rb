@@ -21,11 +21,14 @@ describe DockingStation do
   end
 
   it { is_expected.to respond_to(:release_bike) }
+
   describe "#release_bike" do
     it "releases bike" do
-      bike = double(:bike, broken?: false)
-      subject.dock(bike)
-      expect(subject.release_bike).to eq bike
+      station = DockingStation.new
+      bike2 = Bike.new
+      station.dock(bike2)
+      station.bikes
+      expect(station.release_bike).to eq bike2
     end
 
     it "raises an error" do
@@ -33,14 +36,13 @@ describe DockingStation do
     end
 
     it "expects bikes to be working" do
-      bike = double(:bike, working?: true)
-      allow(bike).to receive(:broken?)
+      bike = Bike.new
       subject.dock(bike)
-      expect(subject.release_bike).to be_working
+      expect(subject.release_bike.status).to eq false
     end
   end
 
-  it { is_expected.to respond_to(:dock).with(1).argument }
+  it { is_expected.to respond_to(:dock).with(2).argument }
 
   describe "#dock" do
     it "docks something" do

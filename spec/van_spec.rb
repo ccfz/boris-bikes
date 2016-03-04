@@ -71,7 +71,7 @@ describe Van do
     it "van can pick up and store bikes" do
       bike = Bike.new
       subject.pickup(bike)
-      expect(subject.storage).to be_a Array
+      expect(subject.storage.last).to be_a Bike
     end
   end
 

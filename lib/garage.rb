@@ -1,7 +1,6 @@
 class Garage
 
-  attr_accessor :bikes
-  attr_accessor :capacity
+  attr_reader :bikes
   DEFAULT_CAPACITY = 20
 
     def initialize(capacity = DEFAULT_CAPACITY)
@@ -10,12 +9,12 @@ class Garage
     end
 
   def fix
-     @bikes.each { |bike| bike.broken= false }
+     @bikes.each { |bike| bike.working }
   end
 
   def pickup(bike)
     return error 'garage is full' if full?
-    @bikes << bike 
+    @bikes << bike
   end
 
   def unload

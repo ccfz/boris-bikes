@@ -1,8 +1,8 @@
 
 class Van
 
-attr_accessor :storage
-attr_accessor :capacity
+attr_reader :storage
+
 DEFAULT_CAPACITY = 20
 
   def initialize(capacity = DEFAULT_CAPACITY)
@@ -11,8 +11,8 @@ DEFAULT_CAPACITY = 20
   end
 
   def pickup(bike)
-    raise if full? 
-    @storage << bike 
+    raise if full?
+    @storage << bike
   end
 
   def unload
