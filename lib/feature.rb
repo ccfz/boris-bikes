@@ -18,8 +18,15 @@ station.dock(bike2, true)
 
 station.dock(bike3, true)
 
-# p station.bikes
-
-van.pickup(station.broken_bikes.pop(2))
+until van.full? == true || station.brokens_empty? == true do
+  van.pickup(station.broken_bikes.pop)
+end
 station.broken_bikes
-p van.storage
+
+ p van.storage
+
+until garage.full? == true || van.empty? == true do
+  garage.pickup(van.storage.pop)
+end
+
+p garage.bikes

@@ -32,7 +32,7 @@ class DockingStation
     @broken_bikes
   end
 
-  private
+  # private
 
   def full?
     @bikes.size >= @capacity
@@ -40,6 +40,10 @@ class DockingStation
 
   def empty?
     @bikes.size == 0
+  end
+
+  def brokens_empty?
+    @broken_bikes.size == 0
   end
 
 end
