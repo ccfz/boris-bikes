@@ -8,15 +8,18 @@ require_relative 'van'
 station = DockingStation.new
 bike1 = Bike.new
 bike2 = Bike.new
+bike3 = Bike.new
 garage = Garage.new
 van = Van.new
 
-bike1.report_broken
-station.dock(bike1)
+station.dock(bike1, true)
 
-station.dock(bike2)
+station.dock(bike2, true)
 
-p station.bikes
+station.dock(bike3, true)
 
-van.pickup(docking_station.broken)
+# p station.bikes
 
+van.pickup(station.broken_bikes.pop(2))
+station.broken_bikes
+p van.storage
