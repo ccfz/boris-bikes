@@ -1,20 +1,20 @@
 require 'garage'
-require 'van'
-require 'bike'
 
 describe Garage do
 
-  let(:bike) { Bike.new }
+  let(:bike) { double(:bike) }
   let(:garage) { Garage.new }
+  
 
   it {is_expected.to respond_to(:fix)}
 
   describe "#fix" do
     it "should fix bikes brought to the garage" do
-        bike.broken
+      allow(bike).to receive(:working)
+        spy(bike)
         garage.pickup(bike)
         garage.fix
-        expect(garage.unload.status).to eq false
+        expect(bike).to have_received(:working)
     end
   end
 

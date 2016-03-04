@@ -9,6 +9,8 @@ station = DockingStation.new
 garage = Garage.new
 van = Van.new
 
+
+
 2.times {station.dock(Bike.new, true)}
 2.times {station.dock(Bike.new, false)}
 
@@ -21,3 +23,4 @@ garage.pickup(van.unload)
 p garage.fix
 
 p van.pickup(garage.unload)
+
