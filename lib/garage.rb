@@ -10,12 +10,20 @@ class Garage
     end
 
   def fix
-     @bikes.each { |bike| bike.broken = false }
+     @bikes.each { |bike| bike.broken= false }
   end
 
   def pickup(bike)
-    @bikes << bike if bike != nil
+    return error 'garage is full' if full?
+    @bikes << bike 
   end
+
+  def unload
+  @bikes.pop
+  end
+
+
+private
 
   def full?
     @bikes.size >= @capacity

@@ -1,26 +1,4 @@
-# class Van
-#   attr_reader :bikes
-#
-#   def initialize
-#     @bikes = []
-#   end
-#
-#   def station_pickup(station)
-#     station.bikes.each {|bike| @bikes << bike if bike.broken?}
-#     station.bikes.delete_if {|bike| bike.broken?}
-#     @bikes
-#   end
-#
-#   def dropoff(garage)
-#     garage.bikes = @bikes
-#     @bikes = []
-#   end
-#
-#   def garage_pickup(garage)
-#     @bikes << garage.bikes
-#   end
-#
-# end
+
 class Van
 
 attr_accessor :storage
@@ -33,12 +11,15 @@ DEFAULT_CAPACITY = 20
   end
 
   def pickup(bike)
-    @storage << bike if bike != nil
-
+    raise if full? 
+    @storage << bike 
   end
 
+  def unload
+    @storage.pop
+  end
 
-  # private
+private
 
   def full?
     @storage.size >= @capacity

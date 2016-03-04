@@ -6,27 +6,18 @@ require_relative 'van'
 
 
 station = DockingStation.new
-bike1 = Bike.new
-bike2 = Bike.new
-bike3 = Bike.new
 garage = Garage.new
 van = Van.new
 
-station.dock(bike1, true)
+2.times {station.dock(Bike.new, true)}
+2.times {station.dock(Bike.new, false)}
 
-station.dock(bike2, true)
+2.times {van.pickup(station.unload)}
 
-station.dock(bike3, true)
+ van.storage
 
-until van.full? == true || station.brokens_empty? == true do
-  van.pickup(station.broken_bikes.pop)
-end
-station.broken_bikes
+garage.pickup(van.unload)
 
- p van.storage
+p garage.fix
 
-until garage.full? == true || van.empty? == true do
-  garage.pickup(van.storage.pop)
-end
-
-p garage.bikes
+p van.pickup(garage.unload)
