@@ -26,3 +26,4 @@ garage.broken_bikes(van.deliver)
  garage.storage
 
 p van.load(garage.fixed_bikes)
+
